@@ -21,4 +21,4 @@ thickness = 5e-05                   # 循环的方法 纸张厚度 1/200/100 米
 for i in range(1, n+1):
     thickness *= 2
 
-print('将一张纸折叠', n, '次后，', '厚度为', thickness, '米。')
+print('将一张纸折叠 %d 次后，厚度为 %.2f 米。' % (n, thickness))

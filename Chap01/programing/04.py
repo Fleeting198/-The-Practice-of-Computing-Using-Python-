@@ -18,4 +18,4 @@ diffSec = (targetYear - curYear) * 31536000
 curPop = 307357870
 targetPop = int(curPop + diffSec / 7 - diffSec / 13 + diffSec / 35)
 
-print('人口估计值：', targetPop, '人')
+print('人口估计值：%d 人。' % targetPop)
