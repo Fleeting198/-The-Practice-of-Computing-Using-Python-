@@ -1,52 +1,66 @@
 # -*- coding:utf-8 -*-
-from datetime import datetime
+import pandas as pd
+import sys
+from prettytable import PrettyTable
 
 
 def getDataList(file_name):
     """ 从csv中读取数据 """
-    data_file = open(file_name, 'r')
-    data_list = []
-    for line in data_file:
-        data_list.append(line.strip().split(','))
-    return data_list[1:]
+    try:
+        dataList = pd.read_csv(sys.path[0] + '/' + file_name, parse_dates=['Date'])
+        dataList = dataList[['Date', 'Volume', 'Adj Close']]  # 保留需要的字段
+        dataList.columns = [['Date', 'Volume', 'AdjClose']]  # 为了pandas处理方便起见去掉key中的空格
+
+        return dataList
+    except OSError:
+        print('没有在.py文件的同文件夹内找到' + file_name + '，代码退出。')
+        exit()
 
 
 def getMonthlyAverages(data_list):
     """ 计算每月平均值，返回元组列表 """
     lMonthlyAvg = []
     dict_tmp = {}
-    for dataOneDay in data_list:
-        thisDate = datetime.strptime(dataOneDay[0], '%Y-%m-%d')
-        monthDate = thisDate.strftime('%Y-%m')
-        if monthDate not in dict_tmp:
-            dict_tmp[monthDate] = [int(dataOneDay[5]) * float(dataOneDay[6]), float(dataOneDay[6])]
-        else:
-            dict_tmp[monthDate][0] += int(dataOneDay[5]) * float(dataOneDay[6])
-            dict_tmp[monthDate][1] += float(dataOneDay[6])
 
+    for line in data_list.itertuples():
+        monthDate = str(line[1])[:7]
+        if monthDate not in dict_tmp:
+            dict_tmp[monthDate] = [line[2] * line[3], line[2]]
+        else:
+            dict_tmp[monthDate][0] += line[2] * line[3]
+            dict_tmp[monthDate][1] += line[2]
+
+    # 以日期为第一列，值为第二列，组装成元组形式返回
     for k, v in dict_tmp.items():
-        lMonthlyAvg.append((v[0]/v[1], k))
+        lMonthlyAvg.append((k, round(v[0] / v[1], 2)))
 
     return lMonthlyAvg
 
 
 def printInfo(monthlyAveragesList):
-    # 按照平均值（元组的0号元素）降序排序
-    lMonthlyAvg = sorted(monthlyAveragesList, key=lambda x: x[0], reverse=True)
+    # 按照平均值降序排序
+    lMonthlyAvg = sorted(monthlyAveragesList, key=lambda x: x[1], reverse=True)
 
+    # 使用PrettyTable 输出美观的控制台表格
+    table = PrettyTable()
+    table.field_names = ['date', 'average']
     if len(lMonthlyAvg) > 6:
         print('最高六个：')
-        print('日期\t\t平均值')
         for data in lMonthlyAvg[:6]:
-            print (data[1], '\t\t', str(round(data[0], 2)))
+            table.add_row(data)
+        print(table)
+        table.clear_rows()
 
         print('最低六个：')
-        for data in lMonthlyAvg[-6:]:
-            print(data[1], '\t\t', str(round(data[0], 2)))
+        for data in lMonthlyAvg[-1:-7:-1]:
+            table.add_row(data)
+        print(table)
+        table.clear_rows()
+
     else:
-        print('日期\t\t平均值')
         for data in lMonthlyAvg:
-            print(data[1], '\t\t', str(round(data[0], 2)))
+            table.add_row(data)
+        print(table)
 
 
 if __name__ == '__main__':

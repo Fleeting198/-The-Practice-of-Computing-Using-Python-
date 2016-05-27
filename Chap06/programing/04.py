@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-
+""" 破解密码 """
 
 def encode(plane, shift):
     """ 凯撒加密，输入明文和偏移量 """
