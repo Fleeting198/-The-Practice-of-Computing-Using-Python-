@@ -1,4 +1,5 @@
-# -*- coding:UTF-8 -*-
+# -*- coding:utf-8 -*-
+# !/usr/bin/python
 """ 杂乱的英语。对句子中的每个单词，保持头尾字母不变，随机打乱中间字母顺序. """
 
 from random import shuffle

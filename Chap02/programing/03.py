@@ -1,5 +1,7 @@
-# -*- coding:UTF-8 -*-
-""" 使用turtle画正多边形 """
+# -*- coding:utf-8 -*-
+# !/usr/bin/python
+
+""" 海龟绘图：多边形 """
 from turtle import *
 
 n = 3

@@ -1,4 +1,5 @@
 # -*- coding:utf-8 -*-
+# !/usr/bin/python
 """ 谁是NBA最佳球员 """
 import pandas as pd
 import sys

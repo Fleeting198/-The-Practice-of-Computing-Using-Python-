@@ -1,4 +1,6 @@
-# -*- coding:UTF-8 -*-
+# -*- coding:utf-8 -*-
+# !/usr/bin/python
+
 """ 帕斯卡三角形 """
 
 # 输入三角形的高度

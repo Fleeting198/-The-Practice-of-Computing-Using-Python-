@@ -1,4 +1,5 @@
 # -*- coding:utf-8 -*-
+# !/usr/bin/python
 import pandas as pd
 import sys
 from prettytable import PrettyTable

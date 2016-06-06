@@ -1,4 +1,5 @@
-# -*- coding:UTF-8 -*-
+# -*- coding:utf-8 -*-
+# !/usr/bin/python
 """ 填字游戏 """
 
 def getWordList(fileName='wordLost.txt'):
@@ -23,7 +24,7 @@ def puzzle_a(wordList):
 
 def puzzle_b(wordList):
     strExam = "lmnopqrstuv"
-    wordList = list(filter(lambda x:x.islower() and '-' not in word, wordList))  # 初步筛选
+    wordList = list(filter(lambda x: x.islower() and '-' not in x, wordList))  # 初步筛选
     listAnswer = wordList[:]
 
     # 进一步筛选
@@ -63,7 +64,7 @@ def puzzle_d(wordList):
 def puzzle_e(wordList):
     wordList = list(filter(lambda x: x.islower() and len(x) == 7 and 's' not in x, wordList))
     listAnswer = wordList[:]
-    vowels = ('a', 'e', 'i', 'o', 'u')
+    vowels = 'aeiou'
     for word in wordList:
         countVowel = 0
         for ch in vowels:
@@ -91,10 +92,7 @@ def puzzle_f(wordList):
 def puzzle_g(wordList):
     # TODO
     """包含字符串是指上题中的包含所有字母还是包含连续字符串？"""
-    listAnswer = []
-    for word in wordList:
-        if "tantan" in word:
-            listAnswer.append(word)
+    listAnswer = list(filter(lambda x: "tantan" in x, wordList))
 
     return listAnswer
 
@@ -108,7 +106,7 @@ def puzzle_h(wordList):
 def puzzle_i(wordList):
     """ 查找使用'i','j','t','x'仅一次的单词 """
     listAnswer = []
-    tupleExam = ('i','j','t','x')
+    tupleExam = 'ijtx'
     for word in wordList:
         count_ch = 0
         isGood = True
@@ -133,12 +131,12 @@ def puzzle_k(wordList):
     """ 按顺序包含元音字母 """
     # 测试完成
     listAnswer = []
-    vowels = ('a', 'e', 'i', 'o', 'u')
+    vowels = 'aeiou'
     for word in wordList:
         # 去掉非元音字母
         for ch in word:
             if ch not in vowels:
-                word = word.replace(ch,'')
+                word = word.replace(ch, '')
 
         # 将字符串转为元组来比较，之后转回字符串返回
         word = tuple(word)
