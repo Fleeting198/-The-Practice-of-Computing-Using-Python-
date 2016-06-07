@@ -16,7 +16,7 @@ index_data.sort_values(by='date', inplace=True)  # 按日期升序排序
 N1 = 5
 N2 = 5
 
-tag_highestN1 = 'highest in '+ str(N1)
+tag_highestN1 = 'highest in ' + str(N1)
 tag_lowestN2 = 'lowest in ' + str(N1)
 
 # 通过rolling_max方法计算最近N1个交易日的最高价

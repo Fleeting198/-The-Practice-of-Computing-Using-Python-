@@ -7,15 +7,11 @@ from prettytable import PrettyTable
 
 def getDataList(file_name):
     """ 从csv中读取数据 """
-    try:
-        dataList = pd.read_csv(sys.path[0] + '/' + file_name, parse_dates=['Date'])
-        dataList = dataList[['Date', 'Volume', 'Adj Close']]  # 保留需要的字段
-        dataList.columns = [['Date', 'Volume', 'AdjClose']]  # 为了pandas处理方便起见去掉key中的空格
+    dataList = pd.read_csv(file_name, parse_dates=['Date'])
+    dataList = dataList[['Date', 'Volume', 'Adj Close']]  # 保留需要的字段
+    dataList.columns = [['Date', 'Volume', 'AdjClose']]  # 为了pandas处理方便起见去掉key中的空格
 
-        return dataList
-    except OSError:
-        print('没有在.py文件的同文件夹内找到' + file_name + '，代码退出。')
-        exit()
+    return dataList
 
 
 def getMonthlyAverages(data_list):
