@@ -89,7 +89,6 @@ def classifyTestSet(testSet, classifier):
                 benignCount += 1
 
         results.append((patient[0], benignCount, malignCount, patient[1]))
-
     return results
 
 
