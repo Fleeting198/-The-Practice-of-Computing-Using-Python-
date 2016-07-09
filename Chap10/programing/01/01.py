@@ -16,7 +16,7 @@ listOfHigh = []
 
 def makeDataSet(fileName):
     """ 从文件读取生成数据 """
-    tSet = []
+    dataSet = []
     with open(fileName, 'r') as trainingFile:
         for line in trainingFile:
             if '?' in line:
@@ -49,9 +49,9 @@ def makeDataSet(fileName):
                           'sex': sex
                           }
 
-            tSet.append(personDict)
+            dataSet.append(personDict)
 
-    return tSet
+    return dataSet
 
 
 def sumDictIndividual2Sum(dictSum, dictIndividual):

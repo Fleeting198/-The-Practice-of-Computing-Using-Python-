@@ -8,7 +8,7 @@ https://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsi
 
 
 def makeDataSet(fileName):
-    tSet = []
+    dataSet = []
     with open(fileName, 'r') as trainingFile:
         for line in trainingFile:
 
@@ -28,9 +28,9 @@ def makeDataSet(fileName):
 
             patientTuple = (
                 pid, diagMorB, int(a1), int(a2), int(a3), int(a4), int(a5), int(a6), int(a7), int(a8), int(a9))
-            tSet.append(patientTuple)
+            dataSet.append(patientTuple)
 
-    return tSet
+    return dataSet
 
 
 def sumLists(list1, list2):
