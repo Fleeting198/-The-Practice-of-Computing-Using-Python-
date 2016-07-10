@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
-""" 标签云 """
+"""标签云 分析独立宣言"""
 
 import sys
 import string

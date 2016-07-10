@@ -1,6 +1,9 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
-""" 标准普尔500预测 """
+"""
+标准普尔500预测
+数据来源：http://finance.yahoo.com/q/hp?s=%5EGSP
+"""
 
 
 def makeDataSet(fileName):

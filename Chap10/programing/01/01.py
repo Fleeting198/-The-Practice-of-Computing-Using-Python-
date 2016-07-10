@@ -7,7 +7,7 @@ https://archive.ics.uci.edu/ml/machine-learning-databases/adult/
 """
 import copy
 
-emptyPerson = {'age': 0, 'education_num': 0, 'capital_gain': 0, 'capital_loss': 0, 'hours_per_week': 0,
+sumTemplate = {'age': 0, 'education_num': 0, 'capital_gain': 0, 'capital_loss': 0, 'hours_per_week': 0,
                'workClass': {}, 'marital_status': {}, 'occupation': {}, 'relationShip': {}, 'race': {}, 'sex': {}}
 keyContinuous = ('age', 'education_num', 'capital_gain', 'capital_loss', 'hours_per_week')
 keyDiscrete = ('workClass', 'marital_status', 'occupation', 'relationShip', 'race', 'sex')
@@ -35,21 +35,25 @@ def makeDataSet(fileName):
             else:
                 salary = 'err'
 
-            personDict = {'salary': salary,
-                          'age': int(age),
-                          'education_num': int(education_num),
-                          'capital_gain': int(capital_gain),
-                          'capital_loss': int(capital_loss),
-                          'hours_per_week': int(hours_per_week),
-                          'workClass': workClass,
-                          'marital_status': marital_status,
-                          'occupation': occupation,
-                          'relationShip': relationShip,
-                          'race': race,
-                          'sex': sex
-                          }
+            person = {'salary': salary,
+                      'age': int(age),
+                      'education_num': int(education_num),
+                      'capital_gain': int(capital_gain),
+                      'capital_loss': int(capital_loss),
+                      'hours_per_week': int(hours_per_week),
+                      'workClass': workClass,
+                      'marital_status': marital_status,
+                      'occupation': occupation,
+                      'relationShip': relationShip,
+                      'race': race,
+                      'sex': sex
+                      }
 
-            dataSet.append(personDict)
+            # 将离散值加入到累加字典模版的键值
+            for key in keyDiscrete:
+                sumTemplate[key][person[key]] = 0
+
+            dataSet.append(person)
 
     return dataSet
 
@@ -117,8 +121,8 @@ def trainClassifier(trainingSet):
     if len(trainingSet) == 0:
         return None
 
-    mtSums = copy.deepcopy(emptyPerson)
-    ltSums = copy.deepcopy(emptyPerson)
+    mtSums = copy.deepcopy(sumTemplate)
+    ltSums = copy.deepcopy(sumTemplate)
     mtCount = 0
     ltCount = 0
 
@@ -141,7 +145,7 @@ def trainClassifier(trainingSet):
     for key in keyDiscrete:
         for k in mtAvg[key].keys():
             if mtAvg[key][k] > ltAvg[key][k]:
-                listOfHigh.append(k)
+                listOfHigh.append(key + k)
 
     classifier = makeAverages(sumDicts(mtAvg, ltAvg), 2)
     return classifier
@@ -158,12 +162,18 @@ def classifyTestSet(testSet, classifier):
             if k == 'salary':
                 continue
             elif k in keyContinuous:
-                if person[k] > classifier[k] and k in listOfHigh:
-                    mtCount += 1
+                if k in listOfHigh:
+                    if person[k] > classifier[k]:
+                        mtCount += 1
+                    else:
+                        ltCount += 1
                 else:
-                    ltCount += 1
+                    if person[k] > classifier[k]:
+                        ltCount += 1
+                    else:
+                        mtCount += 1
             elif k in keyDiscrete:
-                if person[k] in listOfHigh:
+                if k + person[k] in listOfHigh:
                     mtCount += 1
                 else:
                     ltCount += 1
