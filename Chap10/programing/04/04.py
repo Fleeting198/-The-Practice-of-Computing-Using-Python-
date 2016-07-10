@@ -137,10 +137,6 @@ def trainClassifier(trainingSet):
             if ChristAvg[key][k] > noChristAvg[key][k]:
                 listOfHigh.append(key + k)
 
-    print(ChristAvg)
-    print(noChristAvg)
-    print(listOfHigh)
-
     classifier = makeAverages(sumDicts(ChristAvg, noChristAvg), 2)
     return classifier
 
