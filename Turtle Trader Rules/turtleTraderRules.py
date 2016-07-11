@@ -37,7 +37,6 @@ index_data.loc[sell_index, 'suggest'] = '卖出'
 
 index_data['suggest'].fillna(value='', inplace=True)
 
-
 # 使用prettytable模块构建控制台显示的表格
 # 列名
 headers = ['序号', '日期', '最高点', '最低点', '收盘价', '最近' + str(N1) + '天最高点', '最近' + str(N2) + '天最低点', '建议操作']
@@ -51,7 +50,7 @@ for line in index_data.itertuples():
     line[1] = str(line[1])[:10]  # 将pandas的日期转为字符串
     table.add_row(line)
 
-table.align = 'l'   # 向左对齐
+table.align = 'l'  # 向左对齐
 print(table)
 
 # 将数据保存到本.py文件同目录下

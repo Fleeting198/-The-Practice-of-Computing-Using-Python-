@@ -37,16 +37,10 @@ def copyFile(pathFrom, pathTo):
     # 若目标路径只有文件名，加上当前目录
     pathTo = addCurrentPath(pathTo)
 
-    print(pathTo)
-    print(os.path.isdir(pathTo))
-    print(os.path.isfile(pathTo))
-
     # 拆分目标路径
     if os.path.isdir(pathTo):
         dirTo = pathTo
         fileTo = fileFrom
-    # elif os.path.isfile(pathTo):
-    #     dirTo, fileTo = os.path.split(pathTo)
     else:
         dirTo, fileTo = os.path.split(pathTo)
 
