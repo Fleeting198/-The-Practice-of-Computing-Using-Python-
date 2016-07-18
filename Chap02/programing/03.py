@@ -1,16 +1,18 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
-
 """ 海龟绘图：多边形 """
+
 from turtle import *
 
+brush = Turtle()
+
 n = 3
-col = 'black'
+fillColor = ''
 while 1:
     try:
         n = int(input('请输入多边形的边数：'))
-        col = input('可输入填充颜色，空输入即不填充：')
-        color('black', col)
+        fillColor = input('可输入填充颜色，空输入即不填充：')
+        brush.color('black', fillColor)
     except ValueError:
         print('输入有误：应输入大于2的整数。')
     except TurtleGraphicsError:
@@ -21,10 +23,10 @@ while 1:
         else:
             break
 
-a = 180-((n-2) * 180 / n)
-begin_fill()
+angel = 180 - ((n - 2) * 180 / n)
+brush.begin_fill()
 for i in range(n):
-    forward(100)
-    right(a)
-end_fill()
+    brush.forward(600/n)
+    brush.right(angel)
+brush.end_fill()
 done()

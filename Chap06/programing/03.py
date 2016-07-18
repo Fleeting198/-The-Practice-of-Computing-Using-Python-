@@ -1,24 +1,24 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
-""" 杂乱的英语。对句子中的每个单词，保持头尾字母不变，随机打乱中间字母顺序. """
+"""杂乱的英语。对句子中的每个单词，保持头尾字母不变，随机打乱中间字母顺序"""
 
 from random import shuffle
 import string
 
 
-def getWordList(fileName = 'wordList.txt'):
+def getWordList(fileName):
+    wordList = []
     with open(fileName, 'r') as dataFile:
-        wordList = []
         for word in dataFile:
             wordList.append(word.strip().lower())
-        return wordList
+    return wordList
 
 
 def messWithSentence(text):
     words = text.split(' ')
     messText = ''
     for word in words:
-        punct = ''  # 若单词末尾字符为标点，分离单词和标点，打乱单词后附加标点
+        punct = ''  # 若单词末尾字符为标点，则分离单词和标点，打乱单词后附加标点
         if word[-1] in string.punctuation:
             punct = word[-1]
             word = word[:-1]
@@ -40,7 +40,7 @@ if __name__ == '__main__':
            "our fathers brought forth " \
            "on this continent a new nation."
     try:  # 如果没读到文件，就直接采用默认字符串。
-        text = getWordList()
+        text = getWordList("Text.txt")
     except FileNotFoundError:
         pass
 

@@ -1,9 +1,11 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
-""" 儿童黑话 Pig Latin """
+"""儿童黑话 Pig Latin"""
 import string
 
+
 def toPigLatin(word):
+    # 元音字母
     vowels = 'aeiou'
 
     # 如果第一个字母是元音

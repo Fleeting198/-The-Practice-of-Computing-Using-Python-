@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
-""" 破解密码 """
+"""破解密码"""
+
 
 def encode(plane, shift):
     """ 凯撒加密，输入明文和偏移量 """
@@ -18,12 +19,12 @@ def encode(plane, shift):
 
 
 def decode(cipher, shift):
-    """ 凯撒加密，输入密文和偏移量，是加密的逆操作 """
+    """凯撒加密，输入密文和偏移量，是加密的逆操作"""
     return encode(cipher, -int(shift))
 
 
 def find_shift(cipher):
-    """ 将出现频率最高的字符当作为 'e'，以此推测偏移量 """
+    """将出现频率最高的字符当作为 'e'，以此推测偏移量"""
     list_count = [0 for i in range(26)]
     for char in cipher:
         if 65 <= ord(char) <= 90:
@@ -39,7 +40,7 @@ def find_shift(cipher):
 
 
 def auto_decode(cipher):
-    """ 推测偏移量解密文 """
+    """推测偏移量解密文"""
     return decode(cipher, find_shift(cipher))
 
 

@@ -1,4 +1,5 @@
-# -*- coding:UTF-8 -*-
+# -*- coding:utf-8 -*-
+# !/usr/bin/python
 """ 1加仑(美)=3.785 412升 """
 
 gallonPetrol = 0.0

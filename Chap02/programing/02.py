@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
-
 """ 折纸有多厚 """
 # 假设纸的厚度为1/200 cm
 
@@ -20,8 +19,8 @@ while 1:
             break
 
 # thickness = 0.005 * 2**n / 100    # 次方运算的方法
-thickness = 5e-05                   # 循环的方法 纸张厚度 1/200/100 米
-for i in range(1, n+1):
+thickness = 5e-05  # 循环的方法 纸张厚度 1/200/100 米
+for i in range(1, n + 1):
     thickness *= 2
 
 print('将一张纸折叠 %d 次后，厚度为 %.2f 米。' % (n, thickness))

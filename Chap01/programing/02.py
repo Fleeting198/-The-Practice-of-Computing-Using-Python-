@@ -1,4 +1,6 @@
-# -*- coding:UTF-8 -*-
+# -*- coding:utf-8 -*-
+# !/usr/bin/python
+
 """20090925: s=166.37 亿英里，v=38241 英里每小时"""
 
 from datetime import *

@@ -1,17 +1,18 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
-""" 填字游戏 """
+"""填字游戏"""
+
 
 def getWordList(fileName='wordLost.txt'):
+    wordList = []
     with open(fileName, 'r') as dataFile:
-        wordList = []
         for word in dataFile:
             wordList.append(word.strip().lower())
-        return wordList
+    return wordList
 
 
 def puzzle_a(wordList):
-    """ 寻找存在的(word, word + 'er', word + 'est')三元组 """
+    """寻找存在的(word, word + 'er', word + 'est')三元组"""
     listAnswer = []
     for word in wordList:
         worder = word + 'er'
@@ -39,8 +40,9 @@ def puzzle_b(wordList):
 
 def puzzle_c(wordList):
     listAnswer = []
-    pronouns = ('thou','thee','thine','thy','i','me','mine','my','we','us','ours','our','you','yours','your',
-                'he','him','his','she','her','hers','it','its','they','them','theirs','their')
+    pronouns = (
+        'thou', 'thee', 'thine', 'thy', 'i', 'me', 'mine', 'my', 'we', 'us', 'ours', 'our', 'you', 'yours', 'your',
+        'he', 'him', 'his', 'she', 'her', 'hers', 'it', 'its', 'they', 'them', 'theirs', 'their')
     for pre in pronouns:
         for lat in pronouns:
             w = pre + lat  # 两个连续代词组成的单词
@@ -51,7 +53,7 @@ def puzzle_c(wordList):
 
 
 def puzzle_d(wordList):
-    listAnswer = [(word, 'H' + word[1:]) for word in filter(lambda x:len(x) == 6 and x[0] == 'C', wordList)]
+    listAnswer = [(word, 'H' + word[1:]) for word in filter(lambda x: len(x) == 6 and x[0] == 'C', wordList)]
 
     # listAnswer = []
     # for word in wordList:
@@ -191,5 +193,3 @@ if __name__ == '__main__':
     # print(puzzle_k(["afferrissotupp"]))
     # print(puzzle_l(["ssrattte"]))
     # print(puzzle_m(['swat', 'twat', 'twat', 'what', 'what', 'swat']))
-
-

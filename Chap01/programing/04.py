@@ -1,4 +1,5 @@
-# -*- coding:UTF-8 -*-
+# -*- coding:utf-8 -*-
+# !/usr/bin/python
 import time
 
 targetYear = 0

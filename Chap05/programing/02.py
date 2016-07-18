@@ -1,8 +1,10 @@
 # -*- coding:utf-8 -*-
-""" DNA排序 """
+# !/usr/bin/python
+"""DNA排序"""
+
 
 def find(someString, substring, start=0, end=None):
-    """ 自实现的字符串find方法，与str类型的find方法作用相同 """
+    """自实现的字符串find方法，与str类型的find方法作用相同"""
     # 输入验证
     result = -1
 
@@ -26,8 +28,9 @@ def find(someString, substring, start=0, end=None):
 
 
 def multiFind(someString, substring, start, end):
-    """ 查找字符串中所有子串位置，返回用字符串包含逗号分隔的零个或多个索引位置字符串，
-     若没有找到，返回空串
+    """
+    查找字符串中所有子串位置，返回用字符串包含逗号分隔的零个或多个索引位置字符串，
+    若没有找到，返回空串
     """
     len_mainStr = len(someString)
     listResult = []
@@ -36,9 +39,10 @@ def multiFind(someString, substring, start, end):
     i = find(someString, substring, start, end)
     while -1 < i < len_mainStr:
         listResult.append(str(i))
-        i = find(someString, substring, start+i+1, end)
+        i = find(someString, substring, start + i + 1, end)
 
     return listResult
+
 
 if __name__ == '__main__':
     S = 'AACCTGTGGAATCCTGCAAA'

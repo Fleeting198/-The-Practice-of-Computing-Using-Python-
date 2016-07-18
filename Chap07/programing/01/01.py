@@ -1,12 +1,11 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
 import pandas as pd
-import sys
 from prettytable import PrettyTable
 
 
 def getDataList(file_name):
-    """ 从csv中读取数据 """
+    """从csv中读取数据"""
     dataList = pd.read_csv(file_name, parse_dates=['Date'])
     dataList = dataList[['Date', 'Volume', 'Adj Close']]  # 保留需要的字段
     dataList.columns = [['Date', 'Volume', 'AdjClose']]  # 为了pandas处理方便起见去掉key中的空格
@@ -15,7 +14,7 @@ def getDataList(file_name):
 
 
 def getMonthlyAverages(data_list):
-    """ 计算每月平均值，返回元组列表 """
+    """计算每月平均值，返回元组列表"""
     lMonthlyAvg = []
     dict_tmp = {}
 

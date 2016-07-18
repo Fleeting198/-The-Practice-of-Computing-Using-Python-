@@ -1,12 +1,14 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
-""" 谁是NBA最佳球员 """
+"""谁是NBA最佳球员"""
+
 import pandas as pd
 import sys
 from prettytable import PrettyTable
 
+
 def getDataList(file_name):
-    """ 从csv中读取数据 """
+    """从csv中读取数据"""
     try:
         dataList = pd.read_csv(sys.path[0] + '/' + file_name)
         return dataList
@@ -16,7 +18,7 @@ def getDataList(file_name):
 
 
 def calEfficiency(dataList):
-    """ 计算效率值，写回dataList 中并返回 """
+    """计算效率值，写回dataList 中并返回"""
     dataList['efficiency'] = ((dataList['pts'] + dataList['reb'] + dataList['asts'] + dataList['stl'] + dataList[
         'blk']) - ((dataList['fga'] - dataList['fgm']) + (dataList['fta'] - dataList['ftm']) + dataList['turnover'])) / \
                              dataList['gp']
@@ -24,14 +26,14 @@ def calEfficiency(dataList):
 
 
 def rankList(dataList, by, length=50):
-    """ 按照某列名排序，返回前数行，默认50行 """
+    """按照某列名排序，返回前数行，默认50行"""
     dataList.sort_values(by=by, ascending=False, inplace=True)
     dataList = dataList[[by, 'firstname', 'lastname', 'year', 'team']]
     return dataList[:length]
 
 
 def prettyTableFromDF(DF):
-    """ 将DataFrame 写入prettytable 并返回，在这里去掉了第一列序号，所以没有通用性"""
+    """将DataFrame 写入prettytable 并返回，在这里去掉了第一列序号，所以没有通用性"""
     table = PrettyTable()
     table.field_names = list(pd.DataFrame(DF).columns)
     for line in pd.DataFrame(DF).itertuples():

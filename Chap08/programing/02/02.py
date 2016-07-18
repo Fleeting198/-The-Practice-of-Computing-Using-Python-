@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
 """元数据：组织iTunes"""
+
 from prettytable import PrettyTable
 
 
@@ -121,9 +122,9 @@ if __name__ == '__main__':
             for i in range(len(listTime)):
                 name = listTime[i][0]
                 del listTime[i]
-                listTime.insert(i,name)
+                listTime.insert(i, name)
 
-            printSongs(songs,[listTime[0]])
+            printSongs(songs, [listTime[0]])
 
         else:
             print("不存在的指令。")
