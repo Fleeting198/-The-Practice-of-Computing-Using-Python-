@@ -6,13 +6,6 @@ import sys
 from prettytable import PrettyTable
 
 
-def addCurrentPath(path):
-    """若路径没有斜杠，看作是单个文件名，加上当前目录"""
-    if '/' not in path and '\\' not in path:
-        path = sys.path[0] + '\\' + path
-    return path
-
-
 class simpleCSVClient:
     def __init__(self):
         self.titles = []
@@ -23,7 +16,6 @@ class simpleCSVClient:
         """读取csv文件"""
         data = []
         try:
-            fileName = addCurrentPath(fileName)
             with open(fileName, 'r') as dataFile:
                 csvReader = csv.reader(dataFile)
                 for line in csvReader:
@@ -43,7 +35,6 @@ class simpleCSVClient:
         """保存到源文件中"""
         if len(fileName) == 0:
             fileName = self.sourceFileName
-        fileName = addCurrentPath(fileName)
 
         with open(fileName, 'w') as toFile:
             csvWriter = csv.writer(toFile)
@@ -133,7 +124,7 @@ if __name__ == '__main__':
               "    insert col: -i/-insert -c/-col <colID>\n" \
               "    edit cell: -e/-edit <rowID> <colID> <content>\n" \
               "    print table: -p/-print\n" \
-              "    save to file: -s/-save [path]\n" \
+              "    save to file: -s/-save [path]\n"
 
     while 1:
         command = input("请输入操作：")

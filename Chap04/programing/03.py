@@ -5,12 +5,13 @@ import string
 
 
 def toPigLatin(word):
-    # 元音字母
-    vowels = 'aeiou'
+    vowels = 'aeiou'    # 元音字母
 
     # 如果第一个字母是元音
     if word[0] in vowels:
         word += 'yay'
+
+    # 若不是
     else:
         iFirstVowel = 0
         for i in range(len(word)):
@@ -31,15 +32,11 @@ def isWord(word):
 
 
 if __name__ == '__main__':
-    # words = ['dog','scratch','is','apple']
-    # for word in words:
-    #     print(toPigLatin(word))
 
     while 1:
-        word = input('请输入英文单词（输入句号‘.’终止程序）：')
+        word = input('请输入英文单词（输入一个句号‘.’以终止程序）：')
         if word == '.':
-            print('输入了句号，程序终止。')
-            exit()
+            exit('输入了句号，程序终止。')
         if not isWord(word):
             print('输入有误：应输入英语单词。')
             continue

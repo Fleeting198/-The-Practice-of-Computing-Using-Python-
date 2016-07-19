@@ -5,7 +5,7 @@
 數據來源：
 https://archive.ics.uci.edu/ml/machine-learning-databases/flags/
 """
-import copy
+from copy import deepcopy
 
 lenFlag = 0
 sumTemplate = {'bars': 0, 'stripes': 0, 'colours': 0, 'red': 0, 'green': 0, 'blue': 0, 'gold': 0, 'white': 0,
@@ -111,8 +111,8 @@ def trainClassifier(trainingSet):
     if len(trainingSet) == 0:
         return None
 
-    ChristSums = copy.deepcopy(sumTemplate)
-    noChristSums = copy.deepcopy(sumTemplate)
+    ChristSums = deepcopy(sumTemplate)
+    noChristSums = deepcopy(sumTemplate)
     ChristCount = 0
     noChristCount = 0
 
@@ -212,7 +212,7 @@ if __name__ == '__main__':
         try:
             religion = resultSet[name][2]
         except KeyError:
-            print("没有%s的信息。"%name)
+            print("没有%s的信息。" % name)
         else:
             if religion:
                 print("%s是一个基督教国家。" % name)

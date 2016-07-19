@@ -6,12 +6,15 @@ from turtle import *
 
 
 def drawStar(tur, size, fcolor):
+    """画五角星。传入的画笔需要朝右"""
+    # 到五角星的上顶点
     tur.up()
     tur.left(90)
     tur.forward(size / 2)
     tur.right(18)
     tur.down()
 
+    # 开始画星
     tur.color(fcolor, fcolor)
     tur.begin_fill()
     for i in range(5):
@@ -19,6 +22,7 @@ def drawStar(tur, size, fcolor):
         tur.forward(size)
     tur.end_fill()
 
+    # 将画笔回到五角星中心，朝向右
     tur.up()
     tur.right(162)
     tur.forward(size / 2)
@@ -27,8 +31,7 @@ def drawStar(tur, size, fcolor):
 
 
 def drawRectangle(tur, w, h, fcolor):
-    """初始画笔朝向右"""
-
+    """画矩形。传入的画笔需要朝右"""
     tur.color(fcolor, fcolor)
     tur.begin_fill()
     for i in range(2):
@@ -42,13 +45,14 @@ def drawRectangle(tur, w, h, fcolor):
 
 
 def drawFiftyStarsInRectangle(tur, w, h, fcolor):
-    tur.speed(8000)
+    """在一个矩形范围中绘制50颗星星"""
+    tur.speed(1000)
     H = w / 12  # 水平间距
     V = h / 10  # 垂直间距
-    x, y = tur.pos()
+    x, y = tur.pos()  # 初始保存画笔位置
 
     for i in range(9):
-
+        # 画笔移动到下一行，朝向右
         tur.up()
         tur.setpos(x, y)
         tur.right(90)
@@ -56,21 +60,18 @@ def drawFiftyStarsInRectangle(tur, w, h, fcolor):
         tur.left(90)
         tur.down()
 
+        # 保存画笔位置以供画完一行后将画笔归位到行首
         x, y = tur.pos()
 
-        if i % 2 == 0:
-            n = 6
-            tur.up()
-            tur.forward(H)
-            tur.down()
+        # 准备
+        n = 6 - (i % 2)
+        startPadding = H * (i % 2 + 1)
+        tur.up()
+        tur.forward(startPadding)
+        tur.down()
 
-        else:
-            n = 5
-            tur.up()
-            tur.forward(2 * H)
-            tur.down()
-
-        for i in range(n):
+        # 开始向右逐个画星
+        for j in range(n):
             drawStar(tur, H / 2, fcolor)
             tur.up()
             tur.forward(2 * H)
@@ -78,32 +79,36 @@ def drawFiftyStarsInRectangle(tur, w, h, fcolor):
 
 
 def drawFlag(tur, w):
+    """画旗主函数"""
     h = w / 19 * 10
+
+    XleftTop = -w / 2
+    YleftTop = h / 2
 
     # 白底
     # tur.up()
-    # tur.goto(-w / 2, h / 2)
+    # tur.goto(XleftTop, YleftTop)
     # tur.down()
     # drawRectangle(tur, w, h, 'white')
 
     # 红条
     for i in range(7):
         tur.up()
-        tur.goto(-w / 2, h / 2 - i * h * 2 / 13)
+        tur.goto(XleftTop, YleftTop - i * h * 2 / 13)
         tur.down()
         drawRectangle(tur, w, h / 13, 'red')
 
     # 左上角蓝矩形
     tur.up()
-    tur.goto(-w / 2, h / 2)
+    tur.goto(XleftTop, YleftTop)
     tur.down()
-    drawRectangle(tur, w / 2, h / 13 * 7, 'blue')
+    drawRectangle(tur, w / 2.2, h / 13 * 7, 'blue')
 
     # 50个星星
     tur.up()
-    tur.goto(-w / 2, h / 2)
+    tur.goto(XleftTop, YleftTop)
     tur.down()
-    drawFiftyStarsInRectangle(tur, w / 2, h / 13 * 7, 'white')
+    drawFiftyStarsInRectangle(tur, w / 2.2, h / 13 * 7, 'white')
 
 
 if __name__ == "__main__":
