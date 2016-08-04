@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
-""" 海龟绘图：多边形 """
+"""海龟绘图：多边形"""
 
 from turtle import *
 

@@ -1,16 +1,14 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
 """谁是NBA最佳球员"""
-
 import pandas as pd
-import sys
 from prettytable import PrettyTable
 
 
 def getDataList(file_name):
     """从csv中读取数据"""
     try:
-        dataList = pd.read_csv(sys.path[0] + '/' + file_name)
+        dataList = pd.read_csv(file_name)
         return dataList
     except OSError:
         print('没有在.py文件的同文件夹内找到' + file_name + '，代码退出。')

@@ -1,22 +1,19 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
-
 """20090925: s=166.37 亿英里，v=38241 英里每小时"""
-
 from datetime import *
 
 targetDate = ''
 iDiffDay = 0
 while 1:
     try:
-        targetDate = datetime.strptime(input("请输入2009年9月25日后的日期，格式'YYYYMMDD'：\n"), '%Y%m%d')
-        print(targetDate)
+        targetDate = datetime.strptime(input("请输入2009年9月25日后的日期，格式'YYYYMMDD'："), '%Y%m%d')
     except ValueError:
         print('输入有误：不符合格式。')
     else:
         iDiffDay = (targetDate - datetime.strptime('2009/09/25', '%Y/%m/%d')).days
+        print("距现在%d天。" % iDiffDay)
         if iDiffDay > 0:
-            print()
             break
         else:
             print('输入有误：应为2009年9月25日后的日期。')

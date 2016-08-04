@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
-""" 1加仑(美)=3.785 412升 """
+"""1加仑(美)=3.785 412升"""
 
 gallonPetrol = 0.0
 while 1:
@@ -12,7 +12,6 @@ while 1:
         if gallonPetrol < 0:
             print('输入有误：应输入大于0的整数或小数。')
         else:
-            print()
             break
 
 print("以 %f 加仑汽油计算以下值：" % gallonPetrol)

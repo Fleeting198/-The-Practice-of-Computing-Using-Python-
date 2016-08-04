@@ -2,7 +2,6 @@
 # !/usr/bin/python
 """电子表格"""
 import csv
-import sys
 from prettytable import PrettyTable
 
 

@@ -67,8 +67,6 @@ def trainClassifier(trainingSet):
             malignCount += 1
             malignSums = sumLists(malignSums, patient[2:])
 
-    # print(benignSums, benignCount, malignSums, malignCount)
-
     # 计算平均值
     benignAvg = makeAverages(benignSums, benignCount)
     malignAvg = makeAverages(malignSums, malignCount)

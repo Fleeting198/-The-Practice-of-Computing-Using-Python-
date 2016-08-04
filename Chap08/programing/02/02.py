@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
 """元数据：组织iTunes"""
-
 from prettytable import PrettyTable
 
 

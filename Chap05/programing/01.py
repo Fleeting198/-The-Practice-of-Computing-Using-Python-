@@ -1,6 +1,5 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
-
 """在Turtle Graphics中绘制美国国旗"""
 from turtle import *
 

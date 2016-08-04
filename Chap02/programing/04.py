@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
-""" 古怪的乘法 """
-
+"""古怪的乘法"""
 
 def func(a, b):
     result = 0

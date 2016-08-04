@@ -1,7 +1,6 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
 """智多星"""
-
 from random import sample
 
 

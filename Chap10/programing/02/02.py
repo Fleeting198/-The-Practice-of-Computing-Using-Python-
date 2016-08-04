@@ -1,9 +1,8 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/python
 """标签云 分析独立宣言"""
-
-import sys
 import string
+
 
 def makeHTMLbox(body):
     boxStr = '<div style="width: 560px;' \
@@ -21,7 +20,7 @@ def makeHTMLword(body, fontsize):
 
 def readStopWords(fileName):
     stopWords = set()
-    with open(sys.path[0] + '/' + fileName) as file:
+    with open(fileName) as file:
         for line in file:
             line = line.strip('\n')
             stopWords.add(line)
@@ -34,7 +33,7 @@ def getListWordsFromFile(fileNameText, fileNameStopWords):
     words = []
     # 部分在”独立宣言“中的停用词
     stopWords = readStopWords(fileNameStopWords)
-    with open(sys.path[0] + '/' + fileNameText, 'r') as file:
+    with open(fileNameText, 'r') as file:
         for line in file:
             # 去换行符
             line = line.strip('\n')
@@ -64,14 +63,14 @@ def getHTMLFromDictCounts(wordCounts):
 
     for k, v in wordCounts.items():
         if v >= 3:
-            strHTML += makeHTMLword(k, v*10+10)
+            strHTML += makeHTMLword(k, v * 10 + 10)
             strHTML += ' '
 
     return makeHTMLbox(strHTML)
 
 
 def makeHTMLFile(strHTML):
-    with open(sys.path[0] + '/tagCloud.html', 'w') as HTMLFile:
+    with open('tagCloud.html', 'w') as HTMLFile:
         HTMLFile.write(strHTML)
 
 

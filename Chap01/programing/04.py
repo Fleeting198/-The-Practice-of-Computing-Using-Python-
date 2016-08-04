@@ -5,11 +5,10 @@ import time
 targetYear = 0
 while 1:
     try:
-        targetYear = int(input("请输入年份，格式'YYYY'：\n"))
+        targetYear = int(input("请输入年份，格式'YYYY'："))
     except ValueError:
         print('输入有误：应输入正确的年份。')
     else:
-        print()
         break
 
 # 获取当前年份

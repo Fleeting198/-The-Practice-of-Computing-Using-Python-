@@ -5,7 +5,7 @@ import string
 
 
 def toPigLatin(word):
-    vowels = 'aeiou'    # 元音字母
+    vowels = 'aeiou'  # 元音字母
 
     # 如果第一个字母是元音
     if word[0] in vowels:
