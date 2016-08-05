@@ -150,9 +150,21 @@ class Solitaire():
         x = dictUserIpt[userInput]
         return x
 
+    def checkLegalPermutation(self, cards):
+        """
+        检查一组牌是否是正确的排列，要求底牌到顶牌颜色交错，级别逐一递减
+        输入：一个数组，成员全是Card类
+        输出：Ture，False
+        """
+        if len(cards) == 1: return True
+        for i, card in enumerate(cards):
+            if i == 0: continue
+            if card.has_same_color(cards[i - 1]) or card.get_rank() != cards[i - 1].get_rank() - 1:
+                return False
+        return True
+
     def moveBetweenTableau(self, move):
         """从第 j 牌组移动 i 张牌到第 k 牌组"""
-        # 检测
         if not self.checkBetweenTableau(move):
             return False
 
@@ -162,8 +174,8 @@ class Solitaire():
 
         lst = self.tableau[j]
         lst2 = self.tableau[k]
-        movedList = lst[-i:]
-        lst2.extend(movedList)
+        cardsToMove = lst[-i:]
+        lst2.extend(cardsToMove)
         lst = lst[:-i]
         if lst:
             uncoveredCard = lst[-1]
@@ -181,14 +193,18 @@ class Solitaire():
         # 检查参数合法
         if j not in range(1, 8) or k not in range(1, 8) or i > len(self.tableau[j]) or not self.tableau[j]:
             return False
-        cardstoMove = self.tableau[j][-i:]
+
+        cardsToMove = self.tableau[j][-i:]
+        # 检查牌序正确
+        if not self.checkLegalPermutation(cardsToMove):
+            return False
 
         # 不能移动隐藏的牌
-        for c in cardstoMove:
+        for c in cardsToMove:
             if c.get_hidden():
                 return False
 
-        c = cardstoMove[0]
+        c = cardsToMove[0]
         rank = c.get_rank()
         if not self.tableau[k]:
             return True if rank == 13 else False
@@ -198,73 +214,78 @@ class Solitaire():
             return True if not receivingCard.has_same_color(c) and rank == desiredRank else False
 
     def moveTableauToFoundation(self, move):
-        """移动第 n 个tableau 最顶部的牌到第 m 个foundation"""
+        """移动第 i 个tableau 最顶部的牌到第 j 个foundation"""
         if not self.checkTableauToFoundation(move):
             return False
 
-        n = move.colFrom
-        m = move.colTo
+        i = move.colFrom
+        j = move.colTo
 
-        lst = self.tableau[n]
-        lst2 = self.foundation[m]
+        lst = self.tableau[i]
+        lst2 = self.foundation[j]
         movedCard = lst[-1]
         lst2.append(movedCard)
         lst = lst[:-1]
         if lst:
             uncoveredCard = lst[-1]
             uncoveredCard.show_card()
-        self.tableau[n] = lst
+        self.tableau[i] = lst
 
         return True
 
     def checkTableauToFoundation(self, move):
-        """移动第 n 个tableau 最顶部的牌到第 m 个foundation，若空须为A，若不空必须同花色且级别大一级"""
-        n = move.colFrom
-        m = move.colTo
-        if n not in range(1, 8) or m not in range(1, 5) or not self.tableau[n]:
+        """检测：移动第 i 个tableau 最顶部的牌到第 j 个foundation，若空须为A，若不空必须同花色且级别大一级"""
+        i = move.colFrom
+        j = move.colTo
+
+        if i not in range(1, 8) or j not in range(1, 5) or not self.tableau[i]:
             return False
-        card = self.tableau[n][-1]
+
+        card = self.tableau[i][-1]
         rank = card.get_rank()
         suit = card.get_suit()
+
         # 若foundation 空，只能放A
-        if not self.foundation[m]:
+        if not self.foundation[j]:
             return True if rank == 1 else False
         else:
-            foundationCard = self.foundation[m][-1]
+            foundationCard = self.foundation[j][-1]
             desiredRank = foundationCard.get_rank() + 1
 
             return True if foundationCard.get_suit() == suit and desiredRank == rank else False
 
     def moveFoundationToTableau(self, move):
-        """从第 m 个foundation 拿顶牌到第 n 个tableau"""
+        """从第 i 个foundation 拿顶牌到第 j 个tableau"""
         if not self.checkFoundationToTableau(move):
             return False
-        m = move.colFrom
-        n = move.colTo
-        lst = self.foundation[m]
+
+        i = move.colFrom
+        j = move.colTo
+
+        lst = self.foundation[i]
         cardToMove = lst[-1]
-        lst2 = self.tableau[n]
+        lst2 = self.tableau[j]
         lst2.append(cardToMove)
         lst = lst[:-1]
-        self.foundation[m] = lst
+        self.foundation[i] = lst
 
         return True
 
     def checkFoundationToTableau(self, move):
-        """检测：从第 m 个foundation 拿顶牌到第 n 个tableau，若目标牌组栏空则只能放13，若不空则颜色须不同且值小一号"""
-        m = move.colFrom
-        n = move.colTo
+        """检测：从第 i 个foundation 拿顶牌到第 j 个tableau，若目标牌组栏空则只能放13，若不空则颜色须不同且值小一号"""
+        i = move.colFrom
+        j = move.colTo
 
         # 检查参数合法
-        if n not in range(1, 8) or m not in range(1, 5) or not self.foundation[m]:
+        if j not in range(1, 8) or i not in range(1, 5) or not self.foundation[i]:
             return False
-        card = self.foundation[m][-1]
+        card = self.foundation[i][-1]
         rank = card.get_rank()
 
-        if not self.tableau[n]:
+        if not self.tableau[j]:
             return True if rank == 13 else False
         else:
-            receivingCard = self.tableau[n][-1]
+            receivingCard = self.tableau[j][-1]
             desiredRank = receivingCard.get_rank() - 1
             return True if not receivingCard.has_same_color(card) and rank == desiredRank else False
 
@@ -272,8 +293,10 @@ class Solitaire():
         """从第 i 个foundation 拿顶牌到第 j 个foundation"""
         if not self.checkBetweenFoundation(move):
             return False
+
         i = move.colFrom
         j = move.colTo
+
         lst = self.foundation[i]
         lst2 = self.foundation[j]
         cardToMove = lst[-1]
@@ -287,15 +310,16 @@ class Solitaire():
         """从第 i 个foundation 拿顶牌到第 j 个foundation，若空只能放A，若不空不能放"""
         i = move.colFrom
         j = move.colTo
+
         if i not in range(1, 5) or j not in range(1, 5) or not self.foundation[i]:
             return False
         rank = self.foundation[i][-1].get_rank()
         # 若foundation 空，只能放A
         return True if self.foundation[j] and rank == 1 else False
 
+
     class Move:
         """移动指令类"""
-
         class MoveInitError(Exception):
             def __init__(self, args):
                 self.args = args
@@ -350,9 +374,6 @@ class Solitaire():
 
         def __str__(self):
             return str(self.posFrom) + str(self.numFrom) + str(self.colFrom) + str(self.posTo) + str(self.colTo)
-
-        def __repr__(self):
-            return self.__str__()
 
 
 if __name__ == '__main__':
